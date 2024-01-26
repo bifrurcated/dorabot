@@ -78,13 +78,12 @@ public class RoleCommand implements SlashCommand{
                             .withPlaceholder(menuData.placeholder());
                 }).toList();
 
-        return event.deferReply().withEphemeral(true)
+        return event.deferReply()
                 .then(event.createFollowup(InteractionFollowupCreateSpec.builder()
                                 .addEmbed(embed).build()))
                 .flatMapMany(v -> Flux.fromIterable(selectMenus))
                 .flatMap(select -> {
                     var createSpec = InteractionFollowupCreateSpec.builder()
-                            .ephemeral(true)
                             .components(List.of(ActionRow.of(select)));
                     if (specMap.containsKey(select.getCustomId())) {
                         createSpec.addEmbed(specMap.get(select.getCustomId()));
