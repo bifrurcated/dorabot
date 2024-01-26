@@ -1,5 +1,4 @@
 application:
-  guild-id: 947469219891675196
   commands-path: commands/*.json
 spring:
   liquibase:

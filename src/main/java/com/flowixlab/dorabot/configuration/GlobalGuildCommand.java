@@ -17,19 +17,16 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Component
-public class GuildCommand implements ApplicationRunner {
+@Component
+public class GlobalGuildCommand implements ApplicationRunner {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     private final RestClient client;
-    private final long guildId;
     private final String locationPattern;
 
     @Autowired
-    public GuildCommand(RestClient restClient,
-                        @Value("${application.guild-id}") long guildId,
-                        @Value("${application.commands-path}") String locationPattern) {
+    public GlobalGuildCommand(RestClient restClient,
+                              @Value("${application.commands-path}") String locationPattern) {
         this.client = restClient;
-        this.guildId = guildId;
         this.locationPattern = locationPattern;
     }
 
@@ -39,7 +36,7 @@ public class GuildCommand implements ApplicationRunner {
         var matcher = new PathMatchingResourcePatternResolver();
         var applicationService = client.getApplicationService();
         var applicationId = client.getApplicationId().block();
-        var discordCommands = applicationService.getGuildApplicationCommands(applicationId, guildId)
+        var discordCommands = applicationService.getGlobalApplicationCommands(applicationId)
                 .collectMap(ApplicationCommandData::name)
                 .block();
         Map<String, ApplicationCommandRequest> commands = new HashMap<>();
@@ -51,7 +48,7 @@ public class GuildCommand implements ApplicationRunner {
                 commands.put(request.name(), request);
 
                 if (!discordCommands.containsKey(request.name())) {
-                    applicationService.createGuildApplicationCommand(applicationId, guildId, request).block();
+                    applicationService.createGlobalApplicationCommand(applicationId, request).block();
                     LOGGER.info("Created guild command: " + request.name());
                 }
             }
@@ -64,13 +61,13 @@ public class GuildCommand implements ApplicationRunner {
 
             var command = commands.get(discordCommand.name());
             if (command == null) {
-                applicationService.deleteGuildApplicationCommand(applicationId, guildId, commandId).block();
+                applicationService.deleteGlobalApplicationCommand(applicationId, commandId).block();
                 LOGGER.info("Deleted guild command: " + discordCommand.name());
                 continue;
             }
 
             if (hasChanged(discordCommand, command)) {
-                applicationService.modifyGuildApplicationCommand(applicationId, guildId, commandId, command).block();
+                applicationService.modifyGlobalApplicationCommand(applicationId, commandId, command).block();
                 LOGGER.info("Updated guild command: " + discordCommand.name());
             }
         }
