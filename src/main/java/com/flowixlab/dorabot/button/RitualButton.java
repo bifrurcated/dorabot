@@ -1,7 +1,7 @@
 package com.flowixlab.dorabot.button;
 
 import com.flowixlab.dorabot.data.Option;
-import com.flowixlab.dorabot.data.ResourceData;
+import com.flowixlab.dorabot.utils.ResourceData;
 import discord4j.core.event.domain.interaction.ButtonInteractionEvent;
 import discord4j.core.object.component.ActionRow;
 import discord4j.core.object.component.SelectMenu;

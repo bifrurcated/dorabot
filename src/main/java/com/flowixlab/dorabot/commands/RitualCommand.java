@@ -1,6 +1,6 @@
 package com.flowixlab.dorabot.commands;
 
-import com.flowixlab.dorabot.data.ResourceData;
+import com.flowixlab.dorabot.utils.ResourceData;
 import discord4j.common.util.Snowflake;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.component.ActionRow;

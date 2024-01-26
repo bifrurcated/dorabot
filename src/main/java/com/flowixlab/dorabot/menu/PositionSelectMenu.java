@@ -1,7 +1,7 @@
 package com.flowixlab.dorabot.menu;
 
 import com.flowixlab.dorabot.data.Option;
-import com.flowixlab.dorabot.data.ResourceData;
+import com.flowixlab.dorabot.utils.ResourceData;
 import com.flowixlab.dorabot.option.PositionOption;
 import discord4j.core.event.domain.interaction.SelectMenuInteractionEvent;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.flowixlab.dorabot.data;
+package com.flowixlab.dorabot.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
